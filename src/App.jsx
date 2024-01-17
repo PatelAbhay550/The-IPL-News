@@ -14,6 +14,11 @@ function App() {
   const handleDarkModeToggle = (isDarkMode) => {
     setAppDarkMode(isDarkMode);
   };
+  const metaDescriptionTag = document.querySelector('meta[name="description"]');
+  if (metaDescriptionTag) {
+    metaDescriptionTag.content =
+      "Stay updated with the latest news, scores, and updates from the world of IPL and cricket. The IPL News brings you in-depth coverage and analysis.";
+  }
 
   return (
     <Router>
