@@ -54,7 +54,7 @@ const Story = () => {
         <p>By: {authorName}</p>
         <p className="texthtm">{time}</p>
       </div>
-      <div className="mt-8" dangerouslySetInnerHTML={{ __html: content }}></div>
+      <div className="mt-8 texthtm" dangerouslySetInnerHTML={{ __html: content }}></div>
     </div>
   );
 };
