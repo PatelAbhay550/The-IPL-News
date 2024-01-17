@@ -17,7 +17,8 @@
   font-style: normal;
 }
 body {
-  font-family: ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+  font-family: 'Bebas Neue', sans-serif;
+
 }
 /* App.css or global styles */
 .dark-bg {
@@ -38,7 +39,8 @@ body {
   padding: 20px;
 }
 body {
-  font-family: Bebas Neue;
+  font-family: 'Bebas Neue', sans-serif;
+
   transition: all 1.5s ease;
 }
 ul li {
