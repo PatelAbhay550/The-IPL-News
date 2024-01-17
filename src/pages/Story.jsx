@@ -5,6 +5,7 @@ import { db, timestampToDateString } from "../config/firebase";
 
 const Story = () => {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true); // New loading state
   const [title, setTitle] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [time, setTime] = useState("");
@@ -30,11 +31,20 @@ const Story = () => {
           // Assuming you have a helper function to convert timestamp to a formatted date string
           setTime(timestampToDateString(data.createdAt));
           document.title = data.title;
+          const metaDescriptionTag = document.querySelector(
+            'meta[name="description"]'
+          );
+          if (metaDescriptionTag) {
+            metaDescriptionTag.content =
+              data.shortDescription || "Default meta description";
+          }
         } else {
           console.log("No such document!");
         }
       } catch (error) {
         console.error("Error fetching story data: ", error);
+      } finally {
+        setLoading(false); // Set loading to false once data is fetched
       }
     };
 
@@ -43,18 +53,27 @@ const Story = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4">{title}</h1>
-      <img
-        src={imageUrl}
-        className="w-full object-cover object-top h-64 mb-4 rounded-lg"
-        alt={title}
-      />
-      <p className="text-lg mb-4">{shortDescription}</p>
-      <div className="flex items-center justify-between border-b-2 border-slate-400 text-gray-600">
-        <p>By: {authorName}</p>
-        <p className="texthtm">{time}</p>
-      </div>
-      <div className="mt-8 texthtm" dangerouslySetInnerHTML={{ __html: content }}></div>
+      {loading ? ( // Conditional rendering based on loading state
+        <div className="loading">loading</div>
+      ) : (
+        <>
+          <h1 className="text-4xl font-bold mb-4">{title}</h1>
+          <img
+            src={imageUrl}
+            className="w-full object-top object-cover h-64 mb-4 rounded-lg"
+            alt={title}
+          />
+          <p className="text-lg mb-4">{shortDescription}</p>
+          <div className="flex items-center justify-between border-b-2 border-slate-400 text-gray-600">
+            <p>By: {authorName}</p>
+            <p className="texthtm">{time}</p>
+          </div>
+          <div
+            className="mt-8 texthtm"
+            dangerouslySetInnerHTML={{ __html: content }}
+          ></div>
+        </>
+      )}
     </div>
   );
 };
