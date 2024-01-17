@@ -27,7 +27,7 @@ function App() {
         <div
           className={`app-content ${
             appDarkMode ? "dark-bg" : "light-bg"
-          } mt-16 p-0`}
+          } mt-10 p-0`}
         >
           <Categories />
           <Search />
