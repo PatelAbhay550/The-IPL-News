@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-rendering: geometricPrecision;
+}
+.news-cycle-regular {
+  font-family: "News Cycle", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.news-cycle-bold {
+  font-family: "News Cycle", sans-serif;
+  font-weight: 700;
+  color: #026985;
+  font-style: normal;
+}
+body {
+  font-family: ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+}
+/* App.css or global styles */
+.dark-bg {
+  background-color: rgb(
+    24,
+    24,
+    27
+  ); /* Replace with your dark background color */
+  color: #fff; /* Replace with your dark text color */
+}
+
+.light-bg {
+  background-color: #fff; /* Replace with your light background color */
+  color: #000; /* Replace with your light text color */
+}
+
+.app-content {
+  padding: 20px;
+}
+body {
+  font-family: Bebas Neue;
+  transition: all 1.5s ease;
+}
+ul li {
+  cursor: pointer;
+  transition: all 0.14s ease;
+  scale: 1;
+}
+ul li:hover {
+  scale: 1.12;
+}
+input:focus {
+  outline: none;
+}
+.dotted {
+  border: 1px dotted #000;
+  border-radius: 8px;
+}
+::selection {
+  background-color: #026985;
+  color: #fff;
+}
+.texthtm {
+  text-rendering: geometricPrecision;
+}

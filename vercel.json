@@ -1,0 +1,23 @@
+{
+    "routes": [
+      {
+        "src": "/path/(.*)",
+        "dest": "/path/index.html"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/path/(.*)",
+        "destination": "/path/index.html"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
+    ]
+  }
+  
