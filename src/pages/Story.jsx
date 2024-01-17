@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { useParams, Link } from "react-router-dom";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+} from "firebase/firestore";
 import { db, timestampToDateString } from "../config/firebase";
 
 const Story = () => {
   const { id } = useParams();
-  const [loading, setLoading] = useState(true); // New loading state
+  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [time, setTime] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [content, setContent] = useState("");
+  const [nextStories, setNextStories] = useState([]); // Added state for next stories
 
   useEffect(() => {
     const fetchStoryData = async () => {
@@ -27,10 +36,9 @@ const Story = () => {
           setImageUrl(data.imageUrl || "");
           setShortDescription(data.shortDescription || "");
           setContent(data.content || "");
-
-          // Assuming you have a helper function to convert timestamp to a formatted date string
           setTime(timestampToDateString(data.createdAt));
           document.title = data.title;
+
           const metaDescriptionTag = document.querySelector(
             'meta[name="description"]'
           );
@@ -38,13 +46,32 @@ const Story = () => {
             metaDescriptionTag.content =
               data.shortDescription || "Default meta description";
           }
+
+          // Fetch next stories
+          const newsCollection = collection(db, "Quickbytes");
+          const nextStoriesQuery = query(
+            newsCollection,
+            orderBy("createdAt", "desc"),
+            limit(5)
+          );
+          const nextStoriesSnapshot = await getDocs(nextStoriesQuery);
+          const nextStoriesData = nextStoriesSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            title: doc.data().title,
+          }));
+
+          // Exclude the current story from the next stories list
+          const filteredNextStories = nextStoriesData.filter(
+            (story) => story.id !== id
+          );
+          setNextStories(filteredNextStories);
         } else {
           console.log("No such document!");
         }
       } catch (error) {
         console.error("Error fetching story data: ", error);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       }
     };
 
@@ -53,7 +80,7 @@ const Story = () => {
 
   return (
     <div className="container mx-auto p-4">
-      {loading ? ( // Conditional rendering based on loading state
+      {loading ? (
         <div className="loading">loading</div>
       ) : (
         <>
@@ -72,6 +99,22 @@ const Story = () => {
             className="mt-8 texthtm"
             dangerouslySetInnerHTML={{ __html: content }}
           ></div>
+
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold mb-4">Next Stories</h2>
+            <ul>
+              {nextStories.map((story) => (
+                <li key={story.id}>
+                  <Link
+                    to={`/story/${story.id}`}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {story.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </>
       )}
     </div>
