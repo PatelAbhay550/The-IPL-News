@@ -46,7 +46,7 @@ ul li {
   transition: all 0.14s ease;
   scale: 1;
 }
-ul li:hover {
+.cat li:hover {
   scale: 1.12;
 }
 input:focus {
