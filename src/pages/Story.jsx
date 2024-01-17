@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db, timestampToDateString } from "../config/firebase";
-import ReactHtmlParser from "react-html-parser";
 
 const Story = () => {
   const { id } = useParams();
@@ -55,7 +54,7 @@ const Story = () => {
         <p>By: {authorName}</p>
         <p className="texthtm">{time}</p>
       </div>
-      <div className="mt-8">{ReactHtmlParser(content)}</div>
+      <div className="mt-8" dangerouslySetInnerHTML={{ __html: content }}></div>
     </div>
   );
 };
