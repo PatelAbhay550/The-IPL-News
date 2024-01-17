@@ -46,7 +46,7 @@ const Story = () => {
       <h1 className="text-4xl font-bold mb-4">{title}</h1>
       <img
         src={imageUrl}
-        className="w-full object-cover h-64 mb-4 rounded-lg"
+        className="w-full object-cover object-top h-64 mb-4 rounded-lg"
         alt={title}
       />
       <p className="text-lg mb-4">{shortDescription}</p>
