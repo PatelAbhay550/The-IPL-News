@@ -15,10 +15,24 @@ const CategoryNewsDetail = () => {
         const newsDoc = await getDoc(newsDocRef);
 
         if (newsDoc.exists()) {
-          setNewsData({
+          const data = {
             id: newsDoc.id,
             ...newsDoc.data(),
-          });
+          };
+
+          // Set title directly from data
+          document.title = data.title || "Default Title";
+
+          // Set meta description directly from data
+          const metaDescriptionTag = document.querySelector(
+            'meta[name="description"]'
+          );
+          if (metaDescriptionTag) {
+            metaDescriptionTag.content =
+              data.shortDescription || "Default meta description";
+          }
+
+          setNewsData(data);
         } else {
           console.error("No such document!");
         }

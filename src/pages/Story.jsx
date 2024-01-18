@@ -10,6 +10,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db, timestampToDateString } from "../config/firebase";
+import { data } from "autoprefixer";
 
 const Story = ({ appDarkMode }) => {
   const { id } = useParams();
@@ -37,14 +38,16 @@ const Story = ({ appDarkMode }) => {
           setShortDescription(data.shortDescription || "");
           setContent(data.content || "");
           setTime(timestampToDateString(data.createdAt));
-          document.title = data.title;
+          document.title = data.title || "Default Title";
 
+          // Set meta description directly from data
           const metaDescriptionTag = document.querySelector(
             'meta[name="description"]'
           );
           if (metaDescriptionTag) {
             metaDescriptionTag.content =
-              data.shortDescription || "Default meta description";
+              data.shortDescription ||
+              "Stay updated with the latest news, scores, and updates from the world of IPL and cricket. The IPL News brings you in-depth coverage and analysis";
           }
 
           const newsCollection = collection(db, "Quickbytes");
