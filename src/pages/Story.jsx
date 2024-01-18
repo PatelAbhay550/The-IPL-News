@@ -81,7 +81,7 @@ const Story = () => {
   return (
     <div className="container mx-auto p-4">
       {loading ? (
-        <div className="loading">loading</div>
+        <div className="loading">IPL News 2024 - Get latest IPL and cricket news</div>
       ) : (
         <>
           <h1 className="text-4xl font-bold mb-4">{title}</h1>
