@@ -38,7 +38,7 @@ function App() {
           onDarkModeToggle={handleDarkModeToggle}
           appDarkMode={appDarkMode}
         />
-        <div className="mt-12 p-0">
+        <div className="mt-16 p-0">
           <Categories
             selectedCategory={selectedCategory}
             onCategoryClick={handleCategoryClick}
