@@ -14,9 +14,9 @@ const Navbar = ({ onDarkModeToggle }) => {
   return (
     <>
       <div
-        className={`nav w-full h-16 border-b-2 border-white fixed top-0  flex items-center justify-between px-6 py-5 z-50 ${
-          darkMode ? "bg-zinc-900" : "bg-white"
-        } ${darkMode ? "text-white" : "text-black"}`}
+        className={`nav w-full h-16 border-b-2 fixed top-0 flex items-center justify-between px-6 py-5 z-50 ${
+          darkMode ? "dark-bg" : "light-bg"
+        }`}
       >
         <div className="l">
           <IoMdMenu className="w-8 h-8 cursor-pointer" />

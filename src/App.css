@@ -17,35 +17,45 @@
   font-style: normal;
 }
 body {
-  font-family: 'Bebas Neue', sans-serif;
-
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 @media only screen and (max-width: 427px) {
-    /* Adjust font size for better readability on mobile devices */
-    .texthtm p {
-        font-size: 18px;
-    }
-}
-/* App.css or global styles */
-.dark-bg {
-  background-color: rgb(
-    24,
-    24,
-    27
-  ); /* Replace with your dark background color */
-  color: #fff; /* Replace with your dark text color */
+  /* Adjust font size for better readability on mobile devices */
+  .texthtm p {
+    font-size: 18px;
+  }
 }
 
+/* styles.css */
+
+/* Light mode styles */
 .light-bg {
-  background-color: #fff; /* Replace with your light background color */
-  color: #000; /* Replace with your light text color */
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
 }
 
-.app-content {
-  padding: 20px;
+.light-text {
+  color: #026985; /* Custom color for IPL in light mode */
 }
+
+/* Dark mode styles */
+.dark-bg {
+  background-color: #161b22;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.dark-text {
+  color: #026985; /* Custom color for IPL in dark mode */
+}
+
+/* Add more styles as needed */
+
 body {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 
   transition: all 1.5s ease;
 }

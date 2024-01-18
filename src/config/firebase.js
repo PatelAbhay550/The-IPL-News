@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: "myblog-aee44.appspot.com",
   messagingSenderId: "851291435958",
   appId: "1:851291435958:web:b7767c42b275579bf74717",
-  measurementId: "G-D7D8PWJ936"
+  measurementId: "G-D7D8PWJ936",
 };
 
 // Initialize Firebase
@@ -22,7 +22,13 @@ const analytics = getAnalytics(app);
 export const db = getFirestore();
 
 // Timestamp to Date String function
+// Timestamp to Date String function
 export const timestampToDateString = (timestamp) => {
-  const date = new Date(timestamp.seconds * 1000);
-  return date.toLocaleString(); // Adjust the formatting as needed
+  if (timestamp && timestamp.seconds) {
+    const date = new Date(timestamp.seconds * 1000);
+    return date.toLocaleString(); // Adjust the formatting as needed
+  } else {
+    // Return a default date or handle the case where timestamp is undefined
+    return "Date not available";
+  }
 };

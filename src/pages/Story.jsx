@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { db, timestampToDateString } from "../config/firebase";
 
-const Story = () => {
+const Story = ({ appDarkMode }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
@@ -20,7 +20,7 @@ const Story = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [content, setContent] = useState("");
-  const [nextStories, setNextStories] = useState([]); // Added state for next stories
+  const [nextStories, setNextStories] = useState([]);
 
   useEffect(() => {
     const fetchStoryData = async () => {
@@ -47,7 +47,6 @@ const Story = () => {
               data.shortDescription || "Default meta description";
           }
 
-          // Fetch next stories
           const newsCollection = collection(db, "Quickbytes");
           const nextStoriesQuery = query(
             newsCollection,
@@ -60,7 +59,6 @@ const Story = () => {
             title: doc.data().title,
           }));
 
-          // Exclude the current story from the next stories list
           const filteredNextStories = nextStoriesData.filter(
             (story) => story.id !== id
           );
@@ -76,12 +74,14 @@ const Story = () => {
     };
 
     fetchStoryData();
-  }, [id]);
+  }, [id, appDarkMode]); // Include appDarkMode as a dependency
 
   return (
-    <div className="container mx-auto p-4">
+    <div className={`container mx-auto p-4 ${appDarkMode ? "dark-mode" : ""}`}>
       {loading ? (
-        <div className="loading">IPL News 2024 - Get latest IPL and cricket news</div>
+        <div className="loading">
+          IPL News 2024 - Get latest IPL and cricket news
+        </div>
       ) : (
         <>
           <h1 className="text-4xl font-bold mb-4">{title}</h1>
