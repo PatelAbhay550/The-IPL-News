@@ -29,7 +29,7 @@ const CategoryNewsDetail = () => {
           );
           if (metaDescriptionTag) {
             metaDescriptionTag.content =
-              data.shortDescription || "Default meta description";
+              data.metaDescription || "Some news about the cricket incident, you should read and know about!";
           }
 
           setNewsData(data);
