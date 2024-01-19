@@ -33,7 +33,7 @@ const AddNews = () => {
       setCategory("");
       setContent("");
     } catch (error) {
-      console.error("Error adding document: ", error);
+      ()=>{}
     }
   };
 
