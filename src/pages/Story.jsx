@@ -134,6 +134,7 @@ const Story = ({ appDarkMode }) => {
             <ul>
               {nextStories.map((story) => (
                 <li key={story.id}>
+                  •
                   <Link
                     to={`/story/${story.id}`}
                     className="text-blue-500 hover:underline"
