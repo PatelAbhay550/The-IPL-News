@@ -23,6 +23,19 @@ const CategoryNewsDetail = () => {
           // Set title directly from data
           document.title = data.title || "Default Title";
 
+    const twitterImage = data.imageUrl;
+    const existingTwitterImage = document.querySelector('meta[name="twitter:image"]');
+
+    if (existingTwitterImage) {
+      existingTwitterImage.setAttribute('content', twitterImage);
+    } else {
+      const newTwitterImage = document.createElement('meta');
+      newTwitterImage.setAttribute('name', 'twitter:image');
+      newTwitterImage.setAttribute('content', twitterImage);
+      document.head.appendChild(newTwitterImage);
+    }
+
+          
           const ogImage = data.imageUrl;
           const existingOGImage = document.querySelector(
             'meta[property="og:image"]'
