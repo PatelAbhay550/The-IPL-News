@@ -70,7 +70,7 @@ const Story = ({ appDarkMode }) => {
           console.log("No such document!");
         }
       } catch (error) {
-        console.error("Error fetching story data: ", error);
+        console.log("Error fetching story data: ");
       } finally {
         setLoading(false);
       }
