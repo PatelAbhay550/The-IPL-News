@@ -31,7 +31,7 @@ const Wysiwyg = () => {
       setContent("");
       setAuthorName("");
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.log("Error adding document: ");
     }
   };
 
