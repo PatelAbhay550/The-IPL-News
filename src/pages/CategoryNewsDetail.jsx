@@ -93,7 +93,7 @@ const CategoryNewsDetail = () => {
             </p>
           </div>
           <div
-            className="texthtml"
+            className="texthtm"
             dangerouslySetInnerHTML={{ __html: newsData.content }}
           ></div>
         </div>
