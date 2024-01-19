@@ -34,10 +34,10 @@ const CategoryNewsDetail = () => {
 
           setNewsData(data);
         } else {
-          console.error("No such document!");
+          console.log("No such document!");
         }
       } catch (error) {
-        console.error("Error fetching news data: ", error);
+        console.log("Error fetching news data: ", error);
       } finally {
         setLoading(false);
       }
