@@ -39,7 +39,19 @@ const Story = ({ appDarkMode }) => {
           setContent(data.content || "");
           setTime(timestampToDateString(data.createdAt));
           document.title = data.title || "Default Title";
+ const ogImage = data.imageUrl;
+          const existingOGImage = document.querySelector(
+            'meta[property="og:image"]'
+          );
 
+          if (existingOGImage) {
+            existingOGImage.setAttribute("content", ogImage);
+          } else {
+            const newOGImage = document.createElement("meta");
+            newOGImage.setAttribute("property", "og:image");
+            newOGImage.setAttribute("content", ogImage);
+            document.head.appendChild(newOGImage);
+          }
           // Set meta description directly from data
           const metaDescriptionTag = document.querySelector(
             'meta[name="description"]'
