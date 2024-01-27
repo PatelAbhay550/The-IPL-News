@@ -26,6 +26,25 @@ const CategoryNewsDetail = () => {
             id: newsDoc.id,
             ...newsDoc.data(),
           };
+          const newsCollection = collection(db, "Allnews");
+          const nextStoriesQuery = query(
+            newsCollection,
+            orderBy("createdAt", "desc"),
+            limit(5)
+          );
+          const nextStoriesSnapshot = await getDocs(nextStoriesQuery);
+          const nextStoriesData = nextStoriesSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            title: doc.data().title,
+          }));
+
+          const filteredNextStories = nextStoriesData.filter(
+            (story) => story.id !== id
+          );
+          setNextStories(filteredNextStories);
+        } else {
+          console.log("No such document!");
+        }
 
           // Set title directly from data
           document.title = data.title || "Default Title";
