@@ -13,6 +13,7 @@ const CategoryNewsDetail = () => {
   const { id } = useParams();
   const [newsData, setNewsData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [nextStories, setNextStories] = useState([]);
 
   useEffect(() => {
     const fetchNewsData = async () => {
