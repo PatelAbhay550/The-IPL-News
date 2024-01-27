@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { doc,
-  getDoc,
-  collection,
-  query,
-  orderBy,
-  limit,
-  getDocs, } from "firebase/firestore";
+import { doc, getDoc, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const CategoryNewsDetail = () => {
   const { id } = useParams();
@@ -26,46 +20,24 @@ const CategoryNewsDetail = () => {
             id: newsDoc.id,
             ...newsDoc.data(),
           };
-          const newsCollection = collection(db, "Allnews");
-          const nextStoriesQuery = query(
-            newsCollection,
-            orderBy("createdAt", "desc"),
-            limit(5)
-          );
-          const nextStoriesSnapshot = await getDocs(nextStoriesQuery);
-          const nextStoriesData = nextStoriesSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            title: doc.data().title,
-          }));
-
-          const filteredNextStories = nextStoriesData.filter(
-            (story) => story.id !== id
-          );
-          setNextStories(filteredNextStories);
-        } else {
-          console.log("No such document!");
-        }
 
           // Set title directly from data
           document.title = data.title || "Default Title";
 
-    const twitterImage = data.imageUrl;
-    const existingTwitterImage = document.querySelector('meta[name="twitter:image"]');
+          const twitterImage = data.imageUrl;
+          const existingTwitterImage = document.querySelector('meta[name="twitter:image"]');
 
-    if (existingTwitterImage) {
-      existingTwitterImage.setAttribute('content', twitterImage);
-    } else {
-      const newTwitterImage = document.createElement('meta');
-      newTwitterImage.setAttribute('name', 'twitter:image');
-      newTwitterImage.setAttribute('content', twitterImage);
-      document.head.appendChild(newTwitterImage);
-    }
+          if (existingTwitterImage) {
+            existingTwitterImage.setAttribute('content', twitterImage);
+          } else {
+            const newTwitterImage = document.createElement('meta');
+            newTwitterImage.setAttribute('name', 'twitter:image');
+            newTwitterImage.setAttribute('content', twitterImage);
+            document.head.appendChild(newTwitterImage);
+          }
 
-          
           const ogImage = data.imageUrl;
-          const existingOGImage = document.querySelector(
-            'meta[property="og:image"]'
-          );
+          const existingOGImage = document.querySelector('meta[property="og:image"]');
 
           if (existingOGImage) {
             existingOGImage.setAttribute("content", ogImage);
@@ -75,15 +47,24 @@ const CategoryNewsDetail = () => {
             newOGImage.setAttribute("content", ogImage);
             document.head.appendChild(newOGImage);
           }
-          
+
           // Set meta description directly from data
-          const metaDescriptionTag = document.querySelector(
-            'meta[name="description"]'
-          );
+          const metaDescriptionTag = document.querySelector('meta[name="description"]');
           if (metaDescriptionTag) {
             metaDescriptionTag.content =
               data.metaDescription || "Some news about the cricket incident, you should read and know about!";
           }
+
+          const newsCollection = collection(db, "Allnews");
+          const nextStoriesQuery = query(newsCollection, orderBy("createdAt", "desc"), limit(5));
+          const nextStoriesSnapshot = await getDocs(nextStoriesQuery);
+          const nextStoriesData = nextStoriesSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            title: doc.data().title,
+          }));
+
+          const filteredNextStories = nextStoriesData.filter((story) => story.id !== id);
+          setNextStories(filteredNextStories);
 
           setNewsData(data);
         } else {
@@ -119,11 +100,28 @@ const CategoryNewsDetail = () => {
             </p>
           </div>
           <div
-            className="texthtm"
+            className="texthtml"
             dangerouslySetInnerHTML={{ __html: newsData.content }}
           ></div>
         </div>
       )}
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Next Stories</h2>
+        <ul>
+          {nextStories.map((story) => (
+            <li key={story.id}>
+              •
+              <Link
+                to={`/story/${story.id}`}
+                className="text-blue-500 hover:underline"
+              >
+                {story.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
